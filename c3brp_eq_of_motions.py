@@ -53,6 +53,7 @@ def rk4_step(func, state, dt, mu):
 
 # Test with Earth-Moon system
 mu_earth_moon = 0.012150585609624044
+mu_jupiter_europa = 2.5e-5
 
 # Initial condition near L2 (rough guess)
 x0 = 1.1  # beyond Moon
@@ -73,7 +74,7 @@ print("-" * 45)
 for i in range(steps + 1):
     print(f"{i:4d} | {state[0]:8.5f} | {state[1]:8.5f} | {state[2]:8.5f} | {state[3]:8.5f}")
     state_iter.append(state)
-    state = rk4_step(cr3bp_ode, state, dt, mu_earth_moon)
+    state = rk4_step(cr3bp_ode, state, dt, mu_jupiter_europa)
 
 states = np.array(state_iter)
 
