@@ -2,6 +2,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 def cr3bp_ode(state, mu):
     """
     Compute the time derivatives for the planar CR3BP in rotating frame.
