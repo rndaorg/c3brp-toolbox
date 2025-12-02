@@ -21,7 +21,7 @@ state0 = np.array([1.1, 0.0, 0.0, 0.2])  # [x, y, vx, vy]
 # Integration settings
 dt = 0.01
 t_final = 6.2832  # ~2π (1 synodic period)
-n_steps = int(t_final / dt)
+n_steps = 10 #int(t_final / dt)
 
 # Storage
 trajectory = np.zeros((n_steps + 1, 4))
@@ -79,4 +79,4 @@ plt.grid(True, linestyle=':', alpha=0.6)
 plt.legend()
 plt.tight_layout()
 plt.show()
-plt.savefig('jacobi_constant.png')
+plt.savefig('jacobi_const.png')
