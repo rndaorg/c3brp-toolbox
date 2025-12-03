@@ -1,5 +1,5 @@
 import numpy as np
-
+from const.const import mu_earth_sun
 from numeric.newton import newton_raphson
 
 def collinear_lagrange_points(mu, tol=1e-12, max_iter=100):
@@ -67,6 +67,5 @@ def collinear_lagrange_points(mu, tol=1e-12, max_iter=100):
     return L1, L2, L3
 
 # Test with Sun-Earth system
-mu_earth = 3.003e-6  # m_earth / (m_sun + m_earth) ≈ 3e-6
-L1, L2, L3 = collinear_lagrange_points(mu_earth)
+L1, L2, L3 = collinear_lagrange_points(mu_earth_sun)
 print(L1, L2, L3)

@@ -1,8 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-from c3brp.c3brp_eq_of_motion import mu_earth_moon, cr3bp_ode, rk4_step
-
 
 def jacobi_constant(state, mu):
     """Compute Jacobi constant for a given state."""
