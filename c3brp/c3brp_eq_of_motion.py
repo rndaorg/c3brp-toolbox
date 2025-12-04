@@ -25,6 +25,8 @@ def cr3bp_ode(state, mu):
     # Avoid singularity (optional safety)
     # if r1 < 1e-6 or r2 < 1e-6:
     #     raise ValueError("Collision with primary or secondary!")
+    # if r1 < 1e-12 or r2 < 1e-12:
+    #     return np.array([vx, vy, 0, 0])
     
     # Equations of motion
     dxdt = vx
@@ -33,4 +35,3 @@ def cr3bp_ode(state, mu):
     dvydt = -2*vx + y - (1 - mu)*y/r1**3 - mu*y/r2**3
     
     return np.array([dxdt, dydt, dvxdt, dvydt])
-
