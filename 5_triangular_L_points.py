@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-from c3brp.jacobian import jacobian
+from cr3bp.jacobian import jacobian
 from const.const import mu_earth_moon
 
 def compute_L4_L5(mu):

@@ -3,9 +3,9 @@ import matplotlib.pyplot as plt
 from matplotlib.widgets import Slider, Button
 import matplotlib.animation as animation
 
-from c3brp.jacobi_const import omega
+from cr3bp.jacobi_const import omega
 from const.const import mu_earth_moon
-from c3brp.collinear import collinear_lagrange_points
+from cr3bp.collinear import collinear_lagrange_points
 from numeric.integrate import integrate_cr3bp
 
 # ----------------------------

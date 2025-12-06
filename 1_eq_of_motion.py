@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from c3brp.c3brp_eq_of_motion import cr3bp_ode
+from cr3bp.cr3bp_eq_of_motion import cr3bp_ode
 from const.const import mu_earth_moon ,mu_jupiter_europa
 from numeric.rk4 import rk4_step
 
@@ -28,4 +28,4 @@ for i in range(steps + 1):
 states = np.array(state_iter)
 
 plt.plot(states[:, 0], states[:, 1])
-plt.savefig('c3brp_state.png')
+plt.savefig('cr3bp_state.png')

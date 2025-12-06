@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from c3brp.c3brp_eq_of_motion import cr3bp_ode
-from c3brp.jacobi_const import jacobi_constant
+from cr3bp.cr3bp_eq_of_motion import cr3bp_ode
+from cr3bp.jacobi_const import jacobi_constant
 from const.const import mu_earth_moon
 from numeric.rk4 import rk4_step
 

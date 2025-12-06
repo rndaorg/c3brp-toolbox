@@ -1,4 +1,4 @@
-### Key Features of C3BRP-Toolbox
+### Key Features of CR3BP-Toolbox
 
 - CR3BP dynamics for arbitrary planet–moon pairs
 - Periodic orbit & manifold computation

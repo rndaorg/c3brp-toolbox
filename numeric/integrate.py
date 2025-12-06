@@ -1,5 +1,5 @@
 import numpy as np
-from c3brp.c3brp_eq_of_motion import cr3bp_ode
+from cr3bp.cr3bp_eq_of_motion import cr3bp_ode
 
 def integrate_cr3bp(z0, mu, t_max, n_steps):
     dt = t_max / n_steps
