@@ -1,6 +1,19 @@
 import numpy as np
 from numeric.newton import newton_raphson
+from numba import njit
 
+
+@njit
+def f(x, mu):
+    """Effective acceleration in rotating frame (set to zero at equilibrium)."""
+    # Avoid singularities
+    r1 = x + mu          # distance from m1 (at -mu)
+    r2 = x - (1 - mu)    # distance from m2 (at 1 - mu)
+    # Gravitational + centrifugal
+    return x - (1 - mu) * r1 / np.abs(r1)**3 - mu * r2 / np.abs(r2)**3
+
+
+@njit
 def collinear_lagrange_points(mu, tol=1e-12, max_iter=100):
     """
     Compute L1, L2, L3 for the circular restricted three-body problem
@@ -26,14 +39,6 @@ def collinear_lagrange_points(mu, tol=1e-12, max_iter=100):
     # Positions of primaries in normalized synodic frame:
     # m1 at x = -mu, m2 at x = 1 - mu
     # Note: distance between primaries = 1, total mass = 1, G = 1, omega = 1
-    
-    def f(x):
-        """Effective acceleration in rotating frame (set to zero at equilibrium)."""
-        # Avoid singularities
-        r1 = x + mu          # distance from m1 (at -mu)
-        r2 = x - (1 - mu)    # distance from m2 (at 1 - mu)
-        # Gravitational + centrifugal
-        return x - (1 - mu) * r1 / np.abs(r1)**3 - mu * r2 / np.abs(r2)**3
     
     
     # --- L1: between the two primaries: -mu < x < 1 - mu
@@ -64,3 +69,30 @@ def collinear_lagrange_points(mu, tol=1e-12, max_iter=100):
     L3 = newton_raphson(f, x_L3_guess, x_min=-2.0, x_max=-mu - 1e-6)
     
     return L1, L2, L3
+
+
+@njit
+def f_L1(x, mu):
+    r1 = x + mu
+    r2 = x - (1 - mu)
+    return x - (1 - mu) * r1 / np.abs(r1)**3 - mu * r2 / np.abs(r2)**3
+
+@njit
+def df_L1(x, mu):
+    r1 = x + mu
+    r2 = x - (1 - mu)
+    return 1 - (1 - mu) * (1/np.abs(r1)**3 - 3*r1**2/np.abs(r1)**5) \
+             - mu * (1/np.abs(r2)**3 - 3*r2**2/np.abs(r2)**5)
+
+@njit
+def compute_L1(mu, tol=1e-14, max_iter=50):
+    # Initial guess just left of m2
+    x = 1 - mu - 0.1
+    for _ in range(max_iter):
+        fx = f_L1(x, mu)
+        dfx = df_L1(x, mu)
+        dx = -fx / dfx
+        x += dx
+        if abs(dx) < tol:
+            break
+    return x

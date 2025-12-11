@@ -1,7 +1,6 @@
-
-
 import numpy as np
-
+from numba import njit
+ 
 
 def jacobian(x, y, mu):
     """
@@ -50,3 +49,23 @@ def jacobian(x, y, mu):
         [U_xy, U_yy, -2, 0]
     ])
     return J
+
+
+@njit
+def cr3bp_jacobian(x, y, mu):
+    r1 = np.sqrt((x + mu)**2 + y**2)
+    r2 = np.sqrt((x - (1 - mu))**2 + y**2)
+
+    Uxx = 1 - (1 - mu) * (1/r1**3 - 3*(x + mu)**2 / r1**5) - mu * (1/r2**3 - 3*(x - 1 + mu)**2 / r2**5)
+    Uyy = 1 - (1 - mu) * (1/r1**3 - 3*y**2 / r1**5) - mu * (1/r2**3 - 3*y**2 / r2**5)
+    Uxy = - (1 - mu) * ( -3*(x + mu)*y / r1**5 ) - mu * ( -3*(x - 1 + mu)*y / r2**5 )
+
+    # Jacobian (state = [x, y, vx, vy])
+    J = np.array([
+        [0, 0, 1, 0],
+        [0, 0, 0, 1],
+        [Uxx, Uxy, 0, 2],
+        [Uxy, Uyy, -2, 0]
+    ])
+    return J
+

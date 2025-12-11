@@ -1,7 +1,8 @@
 # Let's implement the CR3BP ODE function and a basic RK4 stepper in pure Python/NumPy
 import numpy as np
 import matplotlib.pyplot as plt
-from const.const import mu_earth_moon ,mu_jupiter_europa
+from const.const import get_mu, mu_earth_moon ,mu_jupiter_europa
+from numba import njit
 
 
 def cr3bp_ode(state, mu):
@@ -35,3 +36,17 @@ def cr3bp_ode(state, mu):
     dvydt = -2*vx + y - (1 - mu)*y/r1**3 - mu*y/r2**3
     
     return np.array([dxdt, dydt, dvxdt, dvydt])
+
+
+@njit
+def cr3bp_ode_xyz(t, state, mu_body="earth_moon"):
+    mu = get_mu(mu_body)
+    x, y, z, vx, vy, vz = state
+    r1 = np.sqrt((x + mu)**2 + y**2 + z**2)
+    r2 = np.sqrt((x - (1 - mu))**2 + y**2 + z**2)
+
+    ax = x - (1 - mu)*(x + mu)/r1**3 - mu*(x - (1 - mu))/r2**3 + 2*vy
+    ay = y - (1 - mu)*y/r1**3 - mu*y/r2**3 - 2*vx
+    az = - (1 - mu)*z/r1**3 - mu*z/r2**3
+
+    return np.array([vx, vy, vz, ax, ay, az])

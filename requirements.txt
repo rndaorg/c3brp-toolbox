@@ -1,4 +1,5 @@
-numpy
-matplotlib
 ipyml
 ipywidgets
+matplotlib
+numba
+numpy

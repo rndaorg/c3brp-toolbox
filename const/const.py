@@ -4,3 +4,12 @@ mu_earth_moon = 0.012150585609624044
 mu_jupiter_europa = 2.5e-5
 mu_jupiter_sun = 0.0009537
 
+mu = {
+    "earth_sun": mu_earth_sun,
+    "earth_moon": mu_earth_moon,
+    "jupiter_europa": mu_jupiter_europa,
+    "jupiter_sun": mu_jupiter_sun
+}
+
+def get_mu(key):
+    return mu.get(key, None)
