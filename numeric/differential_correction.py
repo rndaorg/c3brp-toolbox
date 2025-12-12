@@ -6,12 +6,12 @@ from numba import njit
 from numeric.integrate import integrate_cr3bp_xyz
 
 
-@njit
+#@njit
 def differential_correction_Lyapunov(mu, x0_guess, vy0_guess, dt=1e-3, max_iter=30, tol=1e-12):
     x0 = x0_guess
     vy0 = vy0_guess
     L1 = compute_L1(mu)
-    half_period_guess = 2.0  # Non-dimensional time
+    half_period_guess = 4.0 #2.0  # Non-dimensional time
 
     for it in range(max_iter):
         # Initial state (Lyapunov orbits are symmetric about x-axis)

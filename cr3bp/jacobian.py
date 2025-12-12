@@ -51,7 +51,7 @@ def jacobian(x, y, mu):
     return J
 
 
-@njit
+#@njit
 def cr3bp_jacobian(x, y, mu):
     r1 = np.sqrt((x + mu)**2 + y**2)
     r2 = np.sqrt((x - (1 - mu))**2 + y**2)
@@ -67,5 +67,5 @@ def cr3bp_jacobian(x, y, mu):
         [Uxx, Uxy, 0, 2],
         [Uxy, Uyy, -2, 0]
     ])
+    
     return J
-

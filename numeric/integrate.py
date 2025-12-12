@@ -25,7 +25,7 @@ def integrate_cr3bp(z0, mu, t_max, n_steps):
     return traj
 
 
-@njit
+#@njit
 def integrate_cr3bp_xyz(state0, t0, tf, dt):
     n_steps = int(np.abs(tf - t0) / dt)
     traj = np.empty((n_steps + 1, 6))

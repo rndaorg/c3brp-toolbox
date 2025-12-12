@@ -33,5 +33,5 @@ if __name__ == "__main__":
     plt.scatter([L1], [0], c='red')
     plt.axis('equal')
     # plt.show()
-    plt.save("earth_moon_lyapunov_orbit.png")
+    plt.savefig("earth_moon_lyapunov_orbit.png")
 

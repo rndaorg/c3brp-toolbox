@@ -19,7 +19,7 @@ def rk4_step(func, state, dt, mu):
     k4 = func(state + dt*k3, mu)
     return state + (dt/6.0)*(k1 + 2*k2 + 2*k3 + k4)
 
-@njit
+#@njit
 def rk4_step_xyz(func, t, y, dt):
     k1 = func(t, y)
     k2 = func(t + dt/2, y + dt*k1/2)

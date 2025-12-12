@@ -38,7 +38,7 @@ def cr3bp_ode(state, mu):
     return np.array([dxdt, dydt, dvxdt, dvydt])
 
 
-@njit
+#@njit
 def cr3bp_ode_xyz(t, state, mu_body="earth_moon"):
     mu = get_mu(mu_body)
     x, y, z, vx, vy, vz = state
