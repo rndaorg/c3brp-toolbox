@@ -3,6 +3,7 @@ import numpy as np
 
 from const.const import get_mu
 from cr3bp.collinear import compute_L1
+from cr3bp.jacobi_const import jacobi_constant
 from cr3bp.jacobian import cr3bp_jacobian
 from numeric.differential_correction import differential_correction_Lyapunov
 
@@ -19,13 +20,20 @@ if __name__ == "__main__":
     J = cr3bp_jacobian(L1, 0.0, mu)
     
     # Eigenvalues give unstable direction — we approximate with small x offset
-    x0_guess = L1 - 0.005  # Slightly left of L1
-    vy0_guess = 0.05       # Initial guess for vy
+    x0_guess = L1 - 1e-4 #0.005  # Slightly left of L1
+    vy0_guess = 1e-3 #0.05       # Initial guess for vy
 
-    state0, T, traj = differential_correction_Lyapunov(mu, x0_guess, vy0_guess)
+    state0, T, traj = differential_correction_Lyapunov(mu, x0_guess, vy0_guess, dt=1e-4)
 
     print(f"Orbit period: {T:.6f}")
     print(f"Final state (half): {traj[-1]}")
+
+    # Check Jacobi constancy
+    '''
+    C0 = jacobi_constant(state0, mu)
+    C_end = jacobi_constant(traj[-1], mu)
+    print(f"Jacobi constant drift: {abs(C0 - C_end):.2e}")
+    '''
 
     # Optionally plot using matplotlib (not required for computation)
     # import matplotlib.pyplot as plt
@@ -34,4 +42,10 @@ if __name__ == "__main__":
     plt.axis('equal')
     # plt.show()
     plt.savefig("earth_moon_lyapunov_orbit.png")
+
+
+
+  
+
+
 
